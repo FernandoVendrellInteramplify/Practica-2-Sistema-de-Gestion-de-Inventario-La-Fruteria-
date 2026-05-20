@@ -18,15 +18,15 @@ export default function InventarioPagina(){
                         Inventario
                     </h1>
                 </header>
-                <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-                    <div  className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5 text-center">
+                    <div  className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 hover:scale-110">
                         <p className="font-bold">Valor total</p>
                         <p className="mt-2 text-3xl font-bold text-blue-600 dark:text-blue-400">{sum.total.toFixed(2)} €</p>
                     </div>
                     {Object.entries(sum.categoriaKG).map(([categoria, kilos]) => (<div key={categoria}
-                        className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                        className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 hover:scale-110">
                         <p className="font-bold">{categoria}</p>
-                        <p className="mt-2 text-2xl font-semibold">{kilos} kg</p>
+                        <p className="mt-2 text-2xl font-bold">{kilos} kg</p>
                     </div>))}
                 </section>
                 <section className="space-y-4">
@@ -41,7 +41,7 @@ export default function InventarioPagina(){
                             const stockBajo = producto.stockKg > 0 && producto.stockKg < 10;
 
                             return(
-                                <tr key={producto.id}>
+                                <tr key={producto.id} className="hover:bg-blue-400 dark:hover:bg-blue-600 hover:scale-101 ">
                                    <td className="px-4 py-4 text-center">
                                         {producto.nombre}
                                     </td>
@@ -56,7 +56,7 @@ export default function InventarioPagina(){
                                     </td>
                                     <td className="px-4 py-4 text-center">
                                         {agotado && (<span  className="rounded-full bg-red-700 px-3 py-1 text-red-100">Agotado</span>)}
-                                        {stockBajo && (<span className="rounded-full bg-orange-700 px-3 py-1 text-orange-100">Stock Bajo</span>)}
+                                        {stockBajo && (<span className="inline-block rounded-full bg-orange-700 px-3 py-1 text-orange-100 animate-[pulseScale_1.2s_ease-in-out_infinite]">Stock Bajo</span>)}
                                         {!agotado && !stockBajo && (<span>Disponible</span>)}
                                     </td>
                                 </tr>
