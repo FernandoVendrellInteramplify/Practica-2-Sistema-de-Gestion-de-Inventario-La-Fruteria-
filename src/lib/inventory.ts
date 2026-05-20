@@ -1,5 +1,6 @@
 import db,{ getProductoPorId } from "./db";
 import { Categoria, InventoryStats,Producto} from "@/types/store";
+import { wrapResponse } from "@/utils/api";
 
 export function calculateDiscount(p: Producto): number {
     if (p.descuento === undefined) {
@@ -29,7 +30,8 @@ export function getInventorySummary(productos: Producto[]): InventoryStats {
   );
 }
 export async function updateProductStock(id: number, nuevoStock: number): Promise<void>{
-    const p = getProductoPorId(id)
+    const respuesta = wrapResponse(getProductoPorId(id))
+    const p = respuesta.data
     if (!p){
             return;
     }
