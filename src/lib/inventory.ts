@@ -1,6 +1,5 @@
 import db,{ getProductoPorId } from "./db";
 import { Categoria, InventoryStats,Producto} from "@/types/store";
-import { revalidatePath } from 'next/cache';  
 
 export function calculateDiscount(p: Producto): number {
     if (p.descuento === undefined) {
@@ -41,19 +40,3 @@ export async function updateProductStock(id: number, nuevoStock: number): Promis
     `).run(nuevoStock,id);
 }
 
-export async function actualizarStock(formData: FormData): Promise<void> {
-  'use server'
-  const id = Number(formData.get('productoId'));
-
-  const nuevoStock = Number(formData.get('nuevoStock'));
-
-  if (Number.isNaN(id)) { return; }
-
-  if (Number.isNaN(nuevoStock)) { return; }
-
-  if (nuevoStock < 0) { return; }
-
-  await updateProductStock(id, nuevoStock);
-
-  revalidatePath('/inventario');
-}

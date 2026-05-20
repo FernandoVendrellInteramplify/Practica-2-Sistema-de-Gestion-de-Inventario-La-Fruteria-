@@ -1,10 +1,13 @@
 import { DataGrid } from "@/components/DataGrid";
 import { getProductos } from "@/lib/db";
-import { calculateDiscount, getInventorySummary, actualizarStock} from "@/lib/inventory";
+import { calculateDiscount, getInventorySummary} from "@/lib/inventory";
+import { actualizarStock } from "@/lib/funtions";
+import { wrapResponse } from "@/utils/api";
 
 
 export default function InventarioPagina(){
-    const p = getProductos();
+    const respuesta = wrapResponse(getProductos());
+    const p = respuesta.data;
     const sum = getInventorySummary(p);
     
     return (
@@ -71,7 +74,7 @@ export default function InventarioPagina(){
                                 <option value="">
                                     Selecciona un producto
                                 </option>
-                                {p.map((producto) => (<option key={producto.id}value={producto.id}>
+                                {p.map((producto) => (<option key={producto.id}value={producto.id} disabled={producto.stockKg === 0}>
                                     {producto.nombre}
                                     </option>))}
                             </select>
