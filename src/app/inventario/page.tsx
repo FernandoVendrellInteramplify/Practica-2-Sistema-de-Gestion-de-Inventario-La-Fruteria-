@@ -14,23 +14,23 @@ export default function InventarioPagina(){
         <main className="min-h-screen bg-zinc-100 px-6 py-10 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
             <div className="mx-auto max-w-7xl space-y-8">
                 <header className="space-y-2">
-                    <h1 className="text-4xl font-bold">
-                        Inventario
-                    </h1>
+                        <h1 className="text-6xl font-bold">
+                            Inventario
+                        </h1>
                 </header>
                 <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5 text-center">
-                    <div  className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 hover:scale-110">
+                    <div  className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 hover:scale-110 hover:shadow-blue-600/60 dark:hover:shadow-blue-400/60">
                         <p className="font-bold">Valor total</p>
-                        <p className="mt-2 text-3xl font-bold text-blue-600 dark:text-blue-400">{sum.total.toFixed(2)} €</p>
+                        <p className="mt-2 text-3xl font-bold text-blue-600 dark:text-blue-400">{sum.total.toFixed(2)} <small>€</small></p>
                     </div>
                     {Object.entries(sum.categoriaKG).map(([categoria, kilos]) => (<div key={categoria}
-                        className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 hover:scale-110">
+                        className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 hover:scale-110 hover:shadow-blue-600/60 dark:hover:shadow-blue-400/60">
                         <p className="font-bold">{categoria}</p>
-                        <p className="mt-2 text-2xl font-bold">{kilos} kg</p>
+                        <p className="mt-2 text-2xl font-bold">{kilos} <small>kg</small></p>
                     </div>))}
                 </section>
                 <section className="space-y-4">
-                    <h2 className="text-2xl font-semibold">
+                    <h2 className="text-4xl font-semibold">
                         Productos
                     </h2>
                     <DataGrid
@@ -41,18 +41,18 @@ export default function InventarioPagina(){
                             const stockBajo = producto.stockKg > 0 && producto.stockKg < 10;
 
                             return(
-                                <tr key={producto.id} className="hover:bg-blue-400 dark:hover:bg-blue-600 hover:scale-101 ">
-                                   <td className="px-4 py-4 text-center">
+                                <tr key={producto.id} className="hover:bg-blue-600 dark:hover:bg-blue-400 odd:bg-zinc-100 even:bg-zinc-200 dark:odd:bg-zinc-800 dark:even:bg-zinc-900 hover:text-zinc-50 dark:hover:text-zinc-950">
+                                   <td className="px-4 py-4 text-center font-bold">
                                         {producto.nombre}
                                     </td>
                                     <td className="px-4 py-4 text-center">
                                         {producto.categoria}
                                     </td>
                                     <td className="px-4 py-4 text-center">
-                                        {calculateDiscount(producto).toFixed(2)} €/kg
+                                        {calculateDiscount(producto).toFixed(2)} <small>€/kg</small>
                                     </td>
                                     <td className="px-4 py-4 text-center">
-                                        {producto.stockKg} kg
+                                        {producto.stockKg} <small>kg</small>
                                     </td>
                                     <td className="px-4 py-4 text-center">
                                         {agotado && (<span  className="rounded-full bg-red-700 px-3 py-1 text-red-100">Agotado</span>)}
@@ -65,8 +65,8 @@ export default function InventarioPagina(){
                     />
                 </section>
                 <section className="space-y-1">
-                    <h2 className="text-2xl font-semibold"> Actualizar stock </h2>
-                    <form action={actualizarStock} className="flex space-y-2 rounded-2xl border border-zinc-200 bg-zinc-100 p-2 dark:border-zinc-800 dark:bg-zinc-900">
+                    <h2 className="text-3xl font-semibold"> Actualizar stock </h2>
+                    <form action={actualizarStock} className="flex space-y-2 rounded-2xl border border-zinc-200 bg-zinc-200 p-2 dark:border-zinc-800 dark:bg-zinc-900">
                         <div className="space-y-2 px-3">
                             <label htmlFor="productoId"> Producto </label>
                             <select id="productoId" name="productoId" required

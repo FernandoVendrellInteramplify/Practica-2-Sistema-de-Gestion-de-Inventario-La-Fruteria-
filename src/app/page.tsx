@@ -22,7 +22,7 @@ export default function Home() {
             La Fruteria
           </h1>
           <p className="max-w-md text-lg p-3 leading-8 text-zinc-600 dark:text-zinc-400">
-            Aplicacion de gestion de inventario.
+            Bienveindo a la aplicación de gestión de inventario.
           </p>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">

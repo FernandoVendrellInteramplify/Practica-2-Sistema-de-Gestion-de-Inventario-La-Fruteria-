@@ -6,10 +6,10 @@ interface DataGridProps<T> {
 
 export function DataGrid<T>({datos, cabeceras, renderRow,}: DataGridProps<T>) {
   return (<div>
-    <table className="min-w-full divide-y">
+    <table className="min-w-full divide-y ">
         <thead>
             <tr>
-                {cabeceras.map((cabecera) =>(<th key={cabecera}>
+                {cabeceras.map((cabecera) =>(<th key={cabecera} className="text-2xl">
                 {cabecera}
                 </th>))}
             </tr>
