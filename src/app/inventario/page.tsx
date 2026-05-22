@@ -1,8 +1,9 @@
 import { DataGrid } from "@/components/DataGrid";
 import { getProductos } from "@/lib/db";
 import { calculateDiscount, getInventorySummary} from "@/lib/inventory";
-import { actualizarStock } from "@/lib/funtions";
+import { actualizarStock, crearProducto,borrarProducto } from "@/lib/funtions";
 import { wrapResponse } from "@/utils/api";
+
 
 
 export default function InventarioPagina(){
@@ -11,9 +12,11 @@ export default function InventarioPagina(){
     const sum = getInventorySummary(p);
     
     return (
+        
         <main className="min-h-screen bg-zinc-100 px-6 py-10 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
             <div className="mx-auto max-w-7xl space-y-8">
                 <header className="space-y-2">
+                    
                         <h1 className="text-6xl font-bold">
                             Inventario
                         </h1>
@@ -35,7 +38,7 @@ export default function InventarioPagina(){
                     </h2>
                     <DataGrid
                         datos={p}
-                        cabeceras={['Nombre', 'Categoría', 'Precio', 'Stock', 'Estado',]}
+                        cabeceras={['Nombre', 'Categoría', 'Precio', 'Stock', 'Estado','Borrar']}
                         renderRow={(producto) =>{
                             const agotado = producto.stockKg === 0;
                             const stockBajo = producto.stockKg > 0 && producto.stockKg < 10;
@@ -59,6 +62,14 @@ export default function InventarioPagina(){
                                         {stockBajo && (<span className="inline-block rounded-full bg-orange-700 px-3 py-1 text-orange-100 animate-[pulseScale_1.2s_ease-in-out_infinite]">Stock Bajo</span>)}
                                         {!agotado && !stockBajo && (<span>Disponible</span>)}
                                     </td>
+                                    <td className="px-4 py-4 text-center">
+                                        <form action={borrarProducto}>
+                                            <input type="hidden" name="id" value={producto.id} />
+                                            <button type="submit" className="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-zinc-50 hover:bg-red-700">
+                                                🗑
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             )
                         }}
@@ -66,7 +77,8 @@ export default function InventarioPagina(){
                 </section>
                 <section className="space-y-1">
                     <h2 className="text-3xl font-semibold"> Actualizar stock </h2>
-                    <form action={actualizarStock} className="flex space-y-2 rounded-2xl border border-zinc-200 bg-zinc-200 p-2 dark:border-zinc-800 dark:bg-zinc-900">
+                    <form action={actualizarStock} 
+                    className="flex space-y-2 rounded-2xl border border-zinc-200 bg-zinc-200 p-2 dark:border-zinc-800 dark:bg-zinc-900">
                         <div className="space-y-2 px-3">
                             <label htmlFor="productoId"> Producto </label>
                             <select id="productoId" name="productoId" required
@@ -88,6 +100,35 @@ export default function InventarioPagina(){
                                     Actualizar
                         </button>
                     </form>
+                </section>
+                <section>
+                     <h2 className="text-2xl font-semibold"> Añadir producto </h2>
+                     <form  action={crearProducto} className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 md:grid-cols-2">
+                        <input type="text" name="nombre" placeholder="Nombre" required
+                        className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950"/>
+
+                        <input type="number" name="precioPorKg" placeholder="Precio por kg" min="0" step="0.01" required 
+                        className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950"/>
+
+                        <input type="number" name="stockKg" placeholder="Stock" min="0" step="1" required 
+                        className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950"/>
+
+                        <select name="categoria" required className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950">
+                            <option value="">Categoría</option>
+                            <option value="Fruta">Fruta</option>
+                            <option value="Verdura">Verdura</option>
+                            <option value="Legumbre">Legumbre</option>
+                            <option value="Fruto Seco">Fruto Seco</option>
+                        </select>
+
+                        <input type="number" name="descuento" placeholder="Descuento %" min="0" max="100" 
+                        className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950"/>
+                        <div>
+                            <button type="submit" className="rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">
+                                Añadir Producto
+                            </button>
+                        </div>
+                     </form>
                 </section>
             </div>
         </main>

@@ -42,3 +42,61 @@ export async function updateProductStock(id: number, nuevoStock: number): Promis
     `).run(nuevoStock,id);
 }
 
+export async function crearProducto(
+  formData: FormData
+): Promise<void> {
+  'use server';
+
+  const nombre = formData.get(
+    'nombre'
+  )?.toString();
+
+  const precioPorKg = Number(
+    formData.get('precioPorKg')
+  );
+
+  const stockKg = Number(
+    formData.get('stockKg')
+  );
+
+  const categoria = formData.get(
+    'categoria'
+  ) as Categoria;
+
+  const descuentoRaw =
+    formData.get('descuento');
+
+  const descuento =
+    descuentoRaw === ''
+      ? null
+      : Number(descuentoRaw);
+
+  if (!nombre) {
+    return;
+  }
+
+  if (Number.isNaN(precioPorKg)) {
+    return;
+  }
+
+  if (Number.isNaN(stockKg)) {
+    return;
+  }
+
+  db.prepare(`
+    INSERT INTO productos (
+      nombre,
+      precioPorKg,
+      stockKg,
+      categoria,
+      descuento
+    )
+    VALUES (?, ?, ?, ?, ?)
+  `).run(
+    nombre,
+    precioPorKg,
+    stockKg,
+    categoria,
+    descuento
+  );
+}
