@@ -3,6 +3,7 @@ import { getProductos } from "@/lib/db";
 import { calculateDiscount, getInventorySummary} from "@/lib/inventory";
 import { actualizarStock, crearProducto,borrarProducto } from "@/lib/funtions";
 import { wrapResponse } from "@/utils/api";
+import Confirm from "@/lib/confirm";
 
 
 
@@ -63,12 +64,12 @@ export default function InventarioPagina(){
                                         {!agotado && !stockBajo && (<span>Disponible</span>)}
                                     </td>
                                     <td className="px-4 py-4 text-center">
-                                        <form action={borrarProducto}>
+                                        <Confirm formAction={borrarProducto} message="¿Seguro que quieres borrar este producto?" successMessage="Producto eliminado">
                                             <input type="hidden" name="id" value={producto.id} />
                                             <button type="submit" className="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-zinc-50 hover:bg-red-700">
                                                 🗑
                                             </button>
-                                        </form>
+                                        </Confirm>
                                     </td>
                                 </tr>
                             )
@@ -77,7 +78,7 @@ export default function InventarioPagina(){
                 </section>
                 <section className="space-y-1">
                     <h2 className="text-3xl font-semibold"> Actualizar stock </h2>
-                    <form action={actualizarStock} 
+                    <Confirm formAction={actualizarStock} message="¿Actualizar stock del producto?" successMessage="Stock actualizado" 
                     className="flex space-y-2 rounded-2xl border border-zinc-200 bg-zinc-200 p-2 dark:border-zinc-800 dark:bg-zinc-900">
                         <div className="space-y-2 px-3">
                             <label htmlFor="productoId"> Producto </label>
@@ -99,11 +100,12 @@ export default function InventarioPagina(){
                         <button type="submit" className="rounded-xl bg-blue-600 px-2 py-1 font-medium text-zinc-50 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">
                                     Actualizar
                         </button>
-                    </form>
+                    </Confirm>
                 </section>
                 <section>
                      <h2 className="text-2xl font-semibold"> Añadir producto </h2>
-                     <form  action={crearProducto} className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 md:grid-cols-2">
+                     <Confirm formAction={crearProducto} message="¿Deseas crear este producto?" successMessage="Producto creado correctamente" 
+                     className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 md:grid-cols-2">
                         <input type="text" name="nombre" placeholder="Nombre" required
                         className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950"/>
 
@@ -128,7 +130,7 @@ export default function InventarioPagina(){
                                 Añadir Producto
                             </button>
                         </div>
-                     </form>
+                     </Confirm>
                 </section>
             </div>
         </main>

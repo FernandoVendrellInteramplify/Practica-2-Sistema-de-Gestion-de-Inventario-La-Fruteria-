@@ -73,6 +73,8 @@ export async function crearProducto(
     )
     VALUES (?, ?, ?, ?, ?)
   `).run(nombre,precioPorKg, stockKg, categoria, descuento);
+
+  revalidatePath('/inventario');
 }
 
 export async function borrarProducto(
@@ -91,4 +93,6 @@ export async function borrarProducto(
     DELETE FROM productos
     WHERE id = ?
   `).run(id);
+
+  revalidatePath('/inventario');
 }
