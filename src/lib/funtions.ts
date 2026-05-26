@@ -93,6 +93,4 @@ export async function borrarProducto(
     DELETE FROM productos
     WHERE id = ?
   `).run(id);
-
-  revalidatePath('/inventario');
 }
