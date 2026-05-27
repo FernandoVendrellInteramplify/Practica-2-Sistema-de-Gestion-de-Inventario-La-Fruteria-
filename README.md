@@ -29,8 +29,9 @@ La aplicación permite:
 Antes de arrancar el proyecto necesitas tener instalado:
 
 - Node.js 20+
-- npm
+- pnpm
 
 
 ```bash
-npm install
+pnpm install
+

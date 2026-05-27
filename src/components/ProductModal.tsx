@@ -37,7 +37,7 @@ export default function ProductModal({
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)} disabled={defaultValues?.stockKg === 0}
+        onClick={() => setOpen(true)} 
         className={defaultValues?.id ?"rounded-lg bg-blue-600 px-2 py-2 text-sm font-medium text-zinc-50 hover:bg-blue-800"
         :"rounded-xl bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-500"}>
         {buttonText}
@@ -67,7 +67,8 @@ export default function ProductModal({
               <input type="number" name="stockKg" placeholder="Stock" min="0" step="1" defaultValue={defaultValues?.stockKg} required 
               className="text-zinc-950 dark:text-zinc-50 rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950"/>
 
-              <select name="categoria" defaultValue={defaultValues?.categoria} required className="text-zinc-950 dark:text-zinc-50 rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950">
+              <select name="categoria" defaultValue={defaultValues?.categoria} required 
+              className="text-zinc-950 dark:text-zinc-50 rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950">
                 <option value="">Categoría</option>
                 <option value="Fruta">Fruta</option>
                 <option value="Verdura">Verdura</option>

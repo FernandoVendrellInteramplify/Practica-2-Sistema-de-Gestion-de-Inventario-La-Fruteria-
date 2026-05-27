@@ -72,7 +72,7 @@ export default function Confirm({
             </p>
             <div className="mt-6 flex justify-center gap-3">
               <button type="button" onClick={() => setOpen(false)}
-                className="rounded-xl bg-blue-600 px-4 py-2 text-zinc-50 hover:bg-blue-400">
+                className="rounded-xl bg-red-700 px-4 py-2 text-zinc-50 hover:bg-red-600">
                 Cancelar
               </button>
               
