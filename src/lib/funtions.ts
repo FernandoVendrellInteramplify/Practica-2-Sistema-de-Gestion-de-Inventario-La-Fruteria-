@@ -1,25 +1,58 @@
 'use server';
-import { updateProductStock } from "@/lib/inventory";
+
 import { revalidatePath } from 'next/cache';
 import db from '@/lib/db';
 import { Categoria } from '@/types/store';
 
+export async function editarProducto(
+  formData: FormData
+): Promise<void> {
 
+  const id = Number(
+    formData.get("id")
+  );
 
-export async function actualizarStock(formData: FormData): Promise<void> {
-  const id = Number(formData.get('productoId'));
+  const nombre =
+    formData.get("nombre")?.toString();
 
-  const nuevoStock = Number(formData.get('nuevoStock'));
+  const precioPorKg = Number(
+    formData.get("precioPorKg")
+  );
 
-  if (Number.isNaN(id)) { return; }
+  const stockKg = Number(
+    formData.get("stockKg")
+  );
 
-  if (Number.isNaN(nuevoStock)) { return; }
+  const categoria =
+    formData.get("categoria");
 
-  if (nuevoStock < 0) { return; }
+  const descuentoRaw =
+    formData.get("descuento");
 
-  await updateProductStock(id, nuevoStock);
+  const descuento =
+    descuentoRaw === ""
+      ? null
+      : Number(descuentoRaw);
 
-  revalidatePath('/inventario');
+  db.prepare(`
+    UPDATE productos
+    SET
+      nombre = ?,
+      precioPorKg = ?,
+      stockKg = ?,
+      categoria = ?,
+      descuento = ?
+    WHERE id = ?
+  `).run(
+    nombre,
+    precioPorKg,
+    stockKg,
+    categoria,
+    descuento,
+    id
+  );
+
+  revalidatePath("/inventario");
 }
 
 
@@ -93,4 +126,6 @@ export async function borrarProducto(
     DELETE FROM productos
     WHERE id = ?
   `).run(id);
+
+  revalidatePath('/inventario');
 }

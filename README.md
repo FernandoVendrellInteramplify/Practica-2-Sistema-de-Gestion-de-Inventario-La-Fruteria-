@@ -20,6 +20,7 @@ La aplicación permite:
 - Tailwind CSS 4
 - SQLite
 - better-sqlite3
+- sonner 2
 
 ---
 

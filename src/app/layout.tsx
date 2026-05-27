@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,19 +12,19 @@ export const metadata: Metadata = {
   description: "Aplicación de gestion de Inventario",
 };
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
-
 export default function RootLayout({
   children,
-}: RootLayoutProps) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="es">
-      <body
-        className={`${inter.className} bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}
-      >
+      <body>
         {children}
+        <Toaster
+          position="top-right"
+          richColors
+        />
       </body>
     </html>
   );
