@@ -43,7 +43,7 @@ export default function InventarioPagina(){
                         </div>
                     <DataGrid
                         datos={p}
-                        cabeceras={['Nombre', 'Categoría', 'Precio', 'Stock', 'Estado','Borrar']}
+                        cabeceras={['Nombre', 'Categoría', 'Precio', 'Stock', 'Estado','Edicion']}
                         renderRow={(producto) =>{
                             const agotado = producto.stockKg === 0;
                             const stockBajo = producto.stockKg > 0 && producto.stockKg < 10;
